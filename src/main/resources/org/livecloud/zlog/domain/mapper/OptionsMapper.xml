@@ -15,4 +15,44 @@
     autoload AS option_autoload
     FROM `options`
   </select>
+  
+  <select id="getOption" resultMap="optionsResultMap">
+    SELECT 
+    id AS option_id,
+    name AS option_name,
+    value AS option_value,
+    autoload AS option_autoload
+    FROM `options`
+    WHERE
+    id=#{id}
+  </select>
+
+  <select id="getCount" resultType="long">
+    SELECT
+    COUNT(*)
+    FROM
+    `options`
+  </select>
+
+  <insert id="addOption" parameterType="Options" >
+    INSERT INTO
+    `options`(name,value,autoload)
+    VALUES(#{name},#{value},'yes')
+  </insert>
+
+  <update id="updateOption" parameterType="Options" >
+    UPDATE
+    `options`
+    SET
+    name=#{name},
+    value=#{value},
+    autoload=#{autoload}
+    WHERE id=#{id}
+  </update>
+
+  <delete id="deleteOption" parameterType="long">
+    DELETE FROM 
+    `options`
+    WHERE id=#{id}
+  </delete>
 </mapper>

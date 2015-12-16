@@ -50,6 +50,7 @@
     <mapper resource="org/livecloud/zlog/domain/mapper/ArticleMapper.xml" />
     <mapper resource="org/livecloud/zlog/domain/mapper/CategoryMapper.xml" />
     <mapper resource="org/livecloud/zlog/domain/mapper/OptionsMapper.xml" />
+    <mapper resource="org/livecloud/zlog/domain/mapper/TagMapper.xml" />
     <mapper resource="org/livecloud/zlog/domain/mapper/Common.xml" />
   </mappers>
 </configuration>

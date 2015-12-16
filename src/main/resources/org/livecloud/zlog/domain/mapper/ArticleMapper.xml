@@ -8,7 +8,7 @@
     <result property="pv" column="art_pv" />
     <result property="createdDate" column="art_created_date"
       jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
-    <result property="modifiedDate" column="art_modified_date" 
+    <result property="modifiedDate" column="art_modified_date"
       jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
     <result property="excerpt" column="art_excerpt" />
     <result property="name" column="art_name" />
@@ -20,7 +20,8 @@
       resultMap="userResult" />
     <association property="category" column="art_category"
       javaType="Category" resultMap="categoryResult" />
-    <collection property="comments" ofType="Comment" resultMap="commentResultMap"/>
+    <collection property="comments" ofType="Comment"
+      resultMap="commentResultMap" />
   </resultMap>
 
   <resultMap id="userResult" type="User">
@@ -33,7 +34,7 @@
     <result property="name" column="cate_name" />
     <result property="intro" column="cate_intro" />
   </resultMap>
-  
+
   <resultMap id="commentResultMap" type="Comment">
     <id property="id" column="comm_id" />
     <result property="author" column="comm_author" />
@@ -42,57 +43,70 @@
 
   <select id="getArticlesByCategory" resultMap="articleResultMap">
     SELECT
-    <include refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
     FROM `article` A
     LEFT OUTER JOIN `category` C ON A.category=C.id
-    LEFT OUTER JOIN `user` U ON A.user=U.id
+    LEFT
+    OUTER JOIN `user` U ON A.user=U.id
     WHERE C.name=#{enName}
   </select>
 
   <select id="getAllArticles" resultMap="articleResultMap">
     SELECT
-    <include refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
     FROM `article` A
     LEFT OUTER JOIN `category` C ON A.category=C.id
-    LEFT OUTER JOIN `user` U ON A.user=U.id
+    LEFT
+    OUTER JOIN `user` U ON A.user=U.id
     ORDER BY A.created_date DESC
   </select>
 
   <select id="getArticlesByCreatedDate" resultMap="articleResultMap">
     SELECT
-    <include refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
     FROM `article` A
     LEFT OUTER JOIN `category` C ON A.category=C.id
-    LEFT OUTER JOIN `user` U ON A.user=U.id
+    LEFT
+    OUTER JOIN `user` U ON A.user=U.id
     ORDER BY A.created_date DESC
   </select>
 
   <select id="getArticlesByPV" resultMap="articleResultMap">
     SELECT
-    <include refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
     FROM `article` A
     LEFT OUTER JOIN `category` C ON A.category=C.id
-    LEFT OUTER JOIN `user` U ON A.user=U.id
+    LEFT
+    OUTER JOIN `user` U ON A.user=U.id
     ORDER BY A.pv DESC
   </select>
 
   <select id="getArticle" resultMap="articleResultMap">
     SELECT
-    <include refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
     FROM `article` A
     LEFT OUTER JOIN `category` C ON A.category=C.id
-    LEFT OUTER JOIN `user` U ON A.user=U.id
+    LEFT
+    OUTER JOIN `user` U ON A.user=U.id
     WHERE A.id=#{id}
-    ORDER BY A.created_date DESC
+    ORDER BY
+    A.created_date DESC
   </select>
 
   <select id="getPrevArticles" resultMap="articleResultMap">
     SELECT
-    <include refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
     FROM `article` A
     LEFT OUTER JOIN `category` C ON
     A.category=C.id
-    LEFT OUTER JOIN `user` U ON
+    LEFT
+    OUTER JOIN `user` U ON
     A.user=U.id
     WHERE A.created_date &lt; #{now}
     ORDER BY A.created_date DESC,
@@ -101,11 +115,13 @@
 
   <select id="getNextArticles" resultMap="articleResultMap">
     SELECT
-    <include refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
     FROM `article` A
     LEFT OUTER JOIN `category` C ON
     A.category=C.id
-    LEFT OUTER JOIN `user` U ON
+    LEFT
+    OUTER JOIN `user` U ON
     A.user=U.id
     WHERE A.created_date &gt; #{now}
     ORDER BY A.created_date ASC,
@@ -114,16 +130,35 @@
 
   <select id="getArticlesInSameTag" resultMap="articleResultMap">
     SELECT DISTINCT
-    <include refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
     FROM `article` A
     LEFT OUTER JOIN `category` C ON
     A.category=C.id
-    LEFT OUTER JOIN `user` U ON
+    LEFT
+    OUTER JOIN `user` U ON
     A.user=U.id
     INNER JOIN `tag` T
-    WHERE A.id != ${myid} AND
+    WHERE A.id !=
+    #{myid} AND
     T.id in
-    (SELECT T.id FROM `article_tag` T WHERE T.id = #{myid})
+    (SELECT T.id FROM `article_tag` T WHERE T.id =
+    #{myid})
+  </select>
+
+  <select id="getArticlesByTags" resultMap="articleResultMap">
+    SELECT DISTINCT
+    <include
+      refid="org.livecloud.zlog.domain.mapper.Common.selectArticleColumns" />
+    FROM `article` A
+    LEFT OUTER JOIN `category` C ON A.category=C.id
+    LEFT
+    OUTER JOIN `user` U ON A.user=U.id
+    LEFT OUTER JOIN `article_tag` AT
+    ON AT.art_id=A.id
+    LEFT OUTER JOIN `tag` T ON AT.tag_id=T.id
+    WHERE
+    T.name = #{tagValue}
   </select>
 
   <update id="updatePV">
@@ -133,35 +168,37 @@
     where id = #{id}
   </update>
 
-  <insert id="save">
-    <selectKey keyProperty="id" resultType="int" order="BEFORE">
-      SELECT
-      count(*) FROM `blog_article` where art_id = #{id}
-    </selectKey>
-    <if test="id > 0">
-      UPDATE `blog_article`
-      SET
-      art_author = #{user},
-      art_category = #{category},
-      art_date = #{createdDate},
-      art_content =
-      #{content},
-      art_title = #{title},
-      art_tagstring =
-      #{tagStrings}
-      WHERE art_id = #{id}
-    </if>
-    <if test="id==0">
-      INSERT INTO `blog_article`(art_author, art_category,
-      art_date, art_content,
-      art_title, art_tagstring, art_excerpt,
-      art_status, comment_status)
-      VALUES (#{user}, #{category},
-      #{createdDate},#{content},#{title},#{tagStrings},
-      #{excerpt},
-      #{articleStatus},#{commentStatus});
-    </if>
+  <select id="getCount" resultType="long">
+    SELECT
+    COUNT(*)
+    FROM
+    `article`
+  </select>
+
+  <insert id="addArticle" parameterType="Article">
+    INSERT INTO
+    `article`(title, content, pv, created_date, modified_date, excerpt, 
+    name, comment_count, comment_status, tag_string, user,category)
+    VALUES(#{title}, #{content}, #{pv}, #{created_date}, #{modified_date},
+    #{excerpt}, #{name}, #{comment_count}, #{comment_status}, #{tag_string},
+    #{user.id}, #{category.id})
   </insert>
+
+  <update id="updateArticle" parameterType="Article">
+    UPDATE
+    `article`
+    SET
+    title=#{title}, content=#{content}, pv=#{pv}, created_date=#{created_date}, 
+    modified_date=#{modified_date}, excerpt=#{excerpt}, name=#{name}, 
+    comment_count=#{comment_count}, comment_status=#{comment_status}, 
+    tag_string=#{tag_string}, user=#{user.id}, category=#{category.id}
+  </update>
+
+  <delete id="deleteArticle" parameterType="long">
+    DELETE FROM
+    `article`
+    WHERE id=#{id}
+  </delete>
 
   <select id="count" resultType="long">
     SELECT COUNT(*) FROM `article`

@@ -45,11 +45,11 @@ public class ArticleService {
 		String articleId = articleInfo.getId();
 		Article article = new Article(HtmlUtils.htmlEscape(articleInfo.getTitle()),
 				articleInfo.getContent());
-		article.setUser(userMapper.findOne(inputUserId));
-		article.setCategory(categoryMapper.findOne(inputCategoryId));
+		article.setUser(userMapper.getUser(inputUserId));
+		article.setCategory(categoryMapper.getCategory(inputCategoryId));
 		article.setModifiedDate(new Date());
 
-		List<Tag> list = tagMapper.findAll();
+		List<Tag> list = tagMapper.getAllTags();
 		article.setTagStrings(HtmlUtils.htmlEscape(articleInfo.getTags()));
 		String[] newStrings = articleInfo.getTags().split(",");
 		Set<Tag> tags = new HashSet<Tag>();
@@ -72,12 +72,12 @@ public class ArticleService {
 		return articleMapper.count();
 	}
 	
-	public Article addNewArticleFromInfo(ArticleInfo articleInfo) {
-		return articleMapper.save(getArticleFromArticleInfo(articleInfo));
+	public long addNewArticleFromInfo(ArticleInfo articleInfo) {
+		return articleMapper.addArticle(getArticleFromArticleInfo(articleInfo));
 	}
 
-	public Article updateArticleFromInfo(ArticleInfo articleInfo) {
-		return articleMapper.save(getArticleFromArticleInfo(articleInfo));
+	public long updateArticleFromInfo(ArticleInfo articleInfo) {
+		return articleMapper.updateArticle(getArticleFromArticleInfo(articleInfo));
 	}
 
 	public boolean removeArticleById(long articleId) {
@@ -89,16 +89,16 @@ public class ArticleService {
 				int articleNumber = tag.getArticles().size();
 				tag.setArticles(null);
 				if (articleNumber == 1)
-					tagMapper.delete(tag.getId());
+					tagMapper.deleteTag(tag.getId());
 			}
 			article.setTags(null);
-			articleMapper.delete(articleId);
+			articleMapper.deleteArticle(articleId);
 			return true;
 		}
 	}
 
-	public Article updateArticle(Article article) {
-		return articleMapper.save(article);
+	public long updateArticle(Article article) {
+		return articleMapper.updateArticle(article);
 	}
 
 	public Article findById(long articleId) {

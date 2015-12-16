@@ -21,7 +21,7 @@ public class OptionsController extends BaseController {
 	
 	/** 保存新增 */  
 	@RequestMapping(method=RequestMethod.POST, value="/global")
-	public @ResponseBody Options addOption(@RequestBody Options options) {
+	public @ResponseBody long addOption(@RequestBody Options options) {
 		return optionsService.addNewOption(options);
 	}
 	
@@ -40,7 +40,7 @@ public class OptionsController extends BaseController {
 	
 	/** 保存更新 */ 
 	@RequestMapping(method=RequestMethod.PUT, value="/global/{id}")
-	public @ResponseBody Options updateGlobalSetting(@RequestBody Options options, @PathVariable String id) {
+	public @ResponseBody long updateGlobalSetting(@RequestBody Options options, @PathVariable String id) {
 		return optionsService.updateOption(options);
 	}
 	

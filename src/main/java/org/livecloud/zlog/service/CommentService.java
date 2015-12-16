@@ -20,7 +20,7 @@ public class CommentService {
 	private CommentMapper commentMapper;
 	
 	public long getCommentCount() {
-		return commentMapper.count();
+		return commentMapper.getCount();
 	}
 	
 	public long getCommentCountByArticle(long articleId) {
@@ -36,7 +36,7 @@ public class CommentService {
 	}
 	
 	public Comment findById(long commentId){
-		return commentMapper.findOne(commentId);
+		return commentMapper.getComment(commentId);
 	}
 	
 	public PageInfo<Comment> findAllByArticle(long articleId, int pageIndex, int pageSize){
@@ -54,7 +54,7 @@ public class CommentService {
 	}
 	
 	public boolean removeComment(Comment comment){
-		Comment c = commentMapper.findOne(comment.getId());
+		Comment c = commentMapper.getComment(comment.getId());
 		if(c==null){
 			return false;
 		} else {
@@ -66,7 +66,7 @@ public class CommentService {
 	}
 	
 	public boolean removeCommentById(long commentId){
-		Comment c = commentMapper.findOne(commentId);
+		Comment c = commentMapper.getComment(commentId);
 		if(c==null){
 			return false;
 		} else {

@@ -2,6 +2,7 @@ package org.livecloud.zlog.domain.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 import org.livecloud.zlog.domain.entity.Category;
 
@@ -9,17 +10,15 @@ public interface CategoryMapper {
 	
     List<Category> getCategories(RowBounds rowBounds);
 	
-	List<Category> getAllCategories();
+	List<Category> getCategories();
 
-    Category findOne(long inputCategoryId);
+    Category getCategory(@Param("id") long id);
 
-    long count();
+    long getCount();
 
-    void delete(Category c);
+    long deleteCategory(Category c);
 
-    Category save(Category category);
-
-    List<Category> findAll(RowBounds rowBounds);
-
-    List<Category> getCategories();
+    long addCategory(Category category);
+    
+    long updateCategory(Category category);
 }

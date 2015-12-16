@@ -180,8 +180,8 @@ $(document).ready(function(){
 			"label" : "提交",
 			"class" : "btn-success",
 			"callback": function() {
-				var url = "category";
-				var jsonData = JSON.stringify({"id": null, "enName":$("#enName").val(), "cnName": $("#cnName").val()});
+				var url = "admin/category";
+				var jsonData = JSON.stringify({"id": null, "name":$("#enName").val(), "intro": $("#cnName").val()});
 				$.addNewObject(url, jsonData, function(data){
 					$('#loadingCategory').category({
 	    				num_entries:$("#total").val(),

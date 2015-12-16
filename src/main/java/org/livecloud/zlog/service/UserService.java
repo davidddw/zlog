@@ -21,40 +21,40 @@ public class UserService {
 	}
 	
 	public long getUserCount() {
-		return userMapper.count();
+		return userMapper.getCount();
 	}
 	
 	public User findById(long userId) {
-		return userMapper.findOne(userId);
+		return userMapper.getUser(userId);
 	}
 	
 	public List<User> findAllUsers() {
-		return userMapper.findAll();
+		return userMapper.getAllUsers();
 	}
 	
 	public PageInfo<User> findAllUsers(int pageIndex, int pageSize) {
-	    List<User> list = userMapper.findAll(new RowBounds(pageIndex, pageSize));
+	    List<User> list = userMapper.getAllUsers(new RowBounds(pageIndex, pageSize));
 	    return new PageInfo<User>(list);
 	}
 	
-	public User addNewUser(User user) {
+	public long addNewUser(User user) {
 		if(userMapper.getUserByUsername(user.getName())!=null){
-			return null; 
+			return 0; 
 		} else {
-			return userMapper.save(user);
+			return userMapper.addUser(user);
 		}
 	}
 	
-	public User updateUser(User user){
-		return userMapper.save(user);
+	public long updateUser(User user){
+		return userMapper.updateUser(user);
 	}
 	
 	public boolean removeUserById(long userId) {
-		User u = userMapper.findOne(userId);
+		User u = userMapper.getUser(userId);
 		if(u == null){
 			return false;
 		}else {
-		    userMapper.delete(userId);
+		    userMapper.deleteUser(userId);
 			return true;
 		}	
 	}

@@ -33,9 +33,11 @@ public interface ArticleMapper {
 
     long count();
 
-    Article save(Article article);
+    long updateArticle(Article article);
+    
+    long addArticle(Article article);
 
-    void delete(long articleId);
+    long deleteArticle(@Param("id") long id);
 
     void updatePV(Article article);
 

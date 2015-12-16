@@ -17,11 +17,11 @@ public class TagService {
 	
 	public void addNewTag(String tagValue){
 		Tag tag = new Tag(tagValue);
-		tagMapper.save(tag);
+		tagMapper.addTag(tag);
 	}
 	
 	public boolean deleteByTagId(long tagId){
-		Tag tag = tagMapper.findOne(tagId);
+		Tag tag = tagMapper.getTag(tagId);
 		if(tag==null){
 			return false;
 		}else {
@@ -29,17 +29,17 @@ public class TagService {
 				article.setTags(null);
 			}
 			tag.setArticles(null);
-			tagMapper.delete(tagId);
+			tagMapper.deleteTag(tagId);
 			return true;
 		}
 	}
 	
 	public Tag findById(long tagId) {
-		return tagMapper.findOne(tagId);
+		return tagMapper.getTag(tagId);
 	}
 	
 	public Tag findByName(String tagName) {
-		List<Tag> tags = tagMapper.findByName(tagName);
+		List<Tag> tags = tagMapper.getByName(tagName);
 		return tags.size()>0 ? tags.get(0): null;
 	}
 	
@@ -48,14 +48,14 @@ public class TagService {
 	}
 	
 	public boolean checkTagExistByName(String tagValue) {
-		return tagMapper.findByName(tagValue).size()>0 ? true:false;
+		return tagMapper.getByName(tagValue).size()>0 ? true:false;
 	}
 	
 	public void addTagFromStrings(String[] tagValues) {
-		List<Tag> list = tagMapper.findAll();
+		List<Tag> list = tagMapper.getAllTags();
 		Set<Tag> newTag = SetOpt.diff(list, tagValues, Tag.class);
 		for(Tag tag : newTag){
-		    tagMapper.save(tag);
+		    tagMapper.addTag(tag);
 		}
 	}
 }

@@ -26,7 +26,7 @@ public class UserController extends BaseController {
 	
 	/** 保存新增 */  
 	@RequestMapping(method=RequestMethod.POST, value="/user")
-	public @ResponseBody User addUser(@RequestBody User user) {
+	public @ResponseBody long addUser(@RequestBody User user) {
 		return userService.addNewUser(user);
 	}
 	
@@ -64,7 +64,7 @@ public class UserController extends BaseController {
 	
 	/** 保存更新 */ 
 	@RequestMapping(method=RequestMethod.PUT, value="/user/{id}")
-	public @ResponseBody User updateUser(@RequestBody User user, @PathVariable String id) {
+	public @ResponseBody long updateUser(@RequestBody User user, @PathVariable String id) {
 		return userService.updateUser(user);
 	}
 	

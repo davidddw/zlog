@@ -14,9 +14,9 @@ public interface CommentMapper {
 	
 	List<Comment> getCommentsByArticle(@Param("articleId") long articleId, RowBounds rowBounds);
 
-    long count();
+    long getCount();
 
-    Comment findOne(long commentId);
+    Comment getComment(@Param("id") long id);
 
     Comment save(Comment com);
 

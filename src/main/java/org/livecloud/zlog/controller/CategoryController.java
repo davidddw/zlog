@@ -26,7 +26,7 @@ public class CategoryController extends BaseController {
 	
 	/** 保存新增 */  
 	@RequestMapping(method=RequestMethod.POST, value="/category")
-	public @ResponseBody Category addCategory(@RequestBody Category categoryInfo) {
+	public @ResponseBody long addCategory(@RequestBody Category categoryInfo) {
 		return categoryService.addNewCategory(categoryInfo);
 	}
 	
@@ -50,7 +50,7 @@ public class CategoryController extends BaseController {
 			HashMap<String, String> categoryJson = new HashMap<String, String>();
 			categoryJson.put("id", category.getId()+"");
 			categoryJson.put("enName", category.getName());
-			categoryJson.put("cnName", category.getName());
+			categoryJson.put("cnName", category.getIntro());
 			categoryList.add(categoryJson);
 		}
 		returnValues.put("category", categoryList);
@@ -61,7 +61,7 @@ public class CategoryController extends BaseController {
 	
 	/** 保存更新 */ 
 	@RequestMapping(method=RequestMethod.PUT, value="/category/{id}")
-	public @ResponseBody Category updateCategory(@RequestBody Category categoryInfo, @PathVariable String id) {
+	public @ResponseBody long updateCategory(@RequestBody Category categoryInfo, @PathVariable String id) {
 		return categoryService.updateCategory(categoryInfo);
 	}
 	

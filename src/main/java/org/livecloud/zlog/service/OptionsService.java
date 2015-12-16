@@ -15,15 +15,15 @@ public class OptionsService {
 	private OptionsMapper optionsMapper;
 
 	public Options findById(long optionId){
-		return optionsMapper.findOne(optionId);
+		return optionsMapper.getOption(optionId);
 	}
 	
-	public Options addNewOption(Options options){
-		return optionsMapper.save(options);
+	public long addNewOption(Options options){
+		return optionsMapper.addOption(options);
 	}
 	
-	public Options updateOption(Options options){
-		return optionsMapper.save(options);
+	public long updateOption(Options options){
+		return optionsMapper.updateOption(options);
 	}
 	
 	public HashMap<String, String> findAllOptions() {
@@ -39,21 +39,21 @@ public class OptionsService {
 	}
 	
 	public boolean removeOption(Options options){
-		Options option = optionsMapper.findOne(options.getId());
+		Options option = optionsMapper.getOption(options.getId());
 		if(option == null){
 			return false;
 		} else {
-		    optionsMapper.delete(option);
+		    optionsMapper.deleteOption(option);
 			return true;
 		}
 	}
 	
 	public boolean removeOptionById(long optionId){
-		Options g = optionsMapper.findOne(optionId);
+		Options g = optionsMapper.getOption(optionId);
 		if(g == null){
 			return false;
 		} else {
-		    optionsMapper.delete(g);
+		    optionsMapper.deleteOption(g);
 			return true;
 		}
 	}

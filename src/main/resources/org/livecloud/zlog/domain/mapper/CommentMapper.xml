@@ -8,6 +8,7 @@
     <result property="content" column="comm_content" />
     <result property="email" column="comm_email" />
     <result property="homepage" column="comm_homepage" />
+    <result property="posttime" column="comm_posttime" />
     <association property="article" column="article_id" javaType="Article">
       <id property="id" column="art_id" />
       <result property="title" column="art_title" />
@@ -22,6 +23,7 @@
     C.content AS comm_content,
     C.email AS comm_email,
     C.homepage AS comm_homepage,
+    C.posttime AS comm_posttime,
     A.id AS art_id,
     A.title AS art_title
     FROM `comment` C
@@ -37,11 +39,31 @@
     C.content AS comm_content,
     C.email AS comm_email,
     C.homepage AS comm_homepage,
+    C.posttime AS comm_posttime,
     A.id AS art_id,
     A.title AS art_title
     FROM `comment` C
     LEFT OUTER JOIN `article` A ON C.article=A.id
     WHERE A.id = #{articleId}
     ORDER BY C.posttime DESC
+  </select>
+  
+  <select id="getComment" resultMap="commentResultMap">
+    SELECT 
+    C.id AS comm_id,
+    C.authorid AS comm_authorid,
+    C.author AS comm_author,
+    C.content AS comm_content,
+    C.email AS comm_email,
+    C.homepage AS comm_homepage,
+    C.posttime AS comm_posttime
+    WHERE C.id = #{id}
+  </select>
+  
+  <select id="getCount" resultType="long" >
+    SELECT 
+    COUNT(*)
+    FROM
+    `comment`
   </select>
 </mapper>

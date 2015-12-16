@@ -17,15 +17,15 @@ public class CategoryService {
 	private CategoryMapper categoryMapper;
 		
 	public long getCategoryCount() {
-		return categoryMapper.count();
+		return categoryMapper.getCount();
 	}
 	
 	public Category findById(long categoryId) {
-		return categoryMapper.findOne(categoryId);
+		return categoryMapper.getCategory(categoryId);
 	}
 	
 	public Category findByClass(Category category) {
-		return categoryMapper.findOne(category.getId());
+		return categoryMapper.getCategory(category.getId());
 	}
 	
 	public List<Category> findAllCategories() {
@@ -33,34 +33,34 @@ public class CategoryService {
 	}
 	
 	public PageInfo<Category> findAllCategories(int pageIndex, int pageSize) {
-	    List<Category> list = categoryMapper.findAll(new RowBounds(pageIndex, pageSize));
+	    List<Category> list = categoryMapper.getCategories(new RowBounds(pageIndex, pageSize));
 	    return new PageInfo<Category>(list); 
 	}
 	
-	public Category addNewCategory(Category category){
-		return categoryMapper.save(category);
+	public long addNewCategory(Category category){
+		return categoryMapper.addCategory(category);
 	}
 	
-	public Category updateCategory(Category category){
-		return categoryMapper.save(category);
+	public long updateCategory(Category category){
+		return categoryMapper.updateCategory(category);
 	}
 	
 	public boolean removeCategory(Category category){
-		Category c = categoryMapper.findOne(category.getId());
+		Category c = categoryMapper.getCategory(category.getId());
 		if(c==null){
 			return false;
 		} else {
-		    categoryMapper.delete(c);
+		    categoryMapper.deleteCategory(c);
 			return true;
 		}
 	}
 	
 	public boolean removeCategoryById(long categoryId) {
-		Category c = categoryMapper.findOne(categoryId);
+		Category c = categoryMapper.getCategory(categoryId);
 		if(c==null){
 			return false;
 		} else {
-		    categoryMapper.delete(c);
+		    categoryMapper.deleteCategory(c);
 			return true;
 		}
 	}

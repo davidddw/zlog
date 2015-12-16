@@ -7,17 +7,19 @@ import org.livecloud.zlog.domain.entity.Tag;
 
 public interface TagMapper {
 	
-	List<Tag> findByName(String name);
+	List<Tag> getByName(String name);
 	
 	Tag getOneTagByName(@Param("tagValue") String tagValue);
 
-    List<Tag> findAll();
+    List<Tag> getAllTags();
 
-    void delete(long id);
+    long deleteTag(long id);
 
-    void save(Tag tag);
+    long updateTag(Tag tag);
+    
+    long addTag(Tag tag);
 
-    Tag findOne(long tagId);
+    Tag getTag(long tagId);
 
     boolean exists(long id);
 

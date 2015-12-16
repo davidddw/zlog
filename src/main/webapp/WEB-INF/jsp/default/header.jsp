@@ -36,6 +36,8 @@
 						内容订阅</a></li>
 				<li><a href=""><img src="static/img/menu6.gif" alt=""><br />
 						内容订阅</a></li>
+				<li><a href=""><img src="static/img/menu6.gif" alt=""><br />
+                                                                内容订阅</a></li>
 			</ul>
 		</div>
 		<div id="Submissions">

@@ -27,11 +27,10 @@ public class ArticleController extends BaseController {
 	
 	/** 保存新增 */  
 	@RequestMapping(method=RequestMethod.POST, value="/article")
-	public @ResponseBody Article addArticle(@RequestBody ArticleInfo articleInfo) {
+	public @ResponseBody long addArticle(@RequestBody ArticleInfo articleInfo) {
 		return articleService.addNewArticleFromInfo(articleInfo);
 	}
 	
-
 	/** 显示 **/ 
 	@RequestMapping(method=RequestMethod.GET, value="/article/{id}")
 	public @ResponseBody Article getArticle(@PathVariable String id) {
@@ -71,7 +70,7 @@ public class ArticleController extends BaseController {
 	
 	/** 保存更新 */ 
 	@RequestMapping(method=RequestMethod.PUT, value="/article/{id}")
-	public @ResponseBody Article updateArticle(@RequestBody ArticleInfo articleInfo, @PathVariable String id) {
+	public @ResponseBody long updateArticle(@RequestBody ArticleInfo articleInfo, @PathVariable String id) {
 		return articleService.updateArticleFromInfo(articleInfo);
 	}
 	

@@ -10,15 +10,17 @@ public interface UserMapper {
 	
 	User getUserByUsername(@Param("name") String username);
 
-    User findOne(long inputUserId);
+    User getUser(@Param("id") long id);
 
-    void delete(long userId);
+    long deleteUser(@Param("id") long id);
 
-    User save(User user);
+    long updateUser(User user);
+    
+    long addUser(User user);
 
-    List<User> findAll(RowBounds rowBounds);
+    List<User> getAllUsers(RowBounds rowBounds);
 
-    List<User> findAll();
+    List<User> getAllUsers();
 
-    long count();
+    long getCount();
 }
