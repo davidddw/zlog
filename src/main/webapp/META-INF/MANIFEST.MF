@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: myblog
+Implementation-Version: 1.0.2-SNAPSHOT
+Implementation-Vendor-Id: com.yunshan
+Built-On: 
+Build-Jdk: 1.7.0_55
+Built-By: david
+Specification-Title: myblog
+Created-By: Apache Maven 3.2.1
+Specification-Version: 1.0.2-SNAPSHOT
+
